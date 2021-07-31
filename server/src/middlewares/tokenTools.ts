@@ -1,14 +1,12 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
-import { secret } from "../secret"
-
 export function autho(req: Request, res: Response, next: NextFunction) {
   try {
     const token = req.header("authorization");
     if (!token) return res.status(403).send("Access denied.");
     
-    const decoded = jwt.verify(token, secret);
+    const decoded = jwt.verify(token, process.env.JWTPRIVATEKEY || "secret");
     res.locals.user = decoded;
     next();
   } catch (error) {
@@ -19,6 +17,6 @@ export function autho(req: Request, res: Response, next: NextFunction) {
 
 export function generateToken(payload: any)
 {
-  const token = jwt.sign(payload, secret);
+  const token = jwt.sign(payload, process.env.JWTPRIVATEKEY || "secret");
   return token;
 }

@@ -5,10 +5,10 @@ export class MySqlConnection
   private static connection: Connection;
   static async Init() {
     this.connection = await mysql2.createConnection({
-      host: "localhost",
-      port: 3306,
-      user: "root",
-      password: "1234",
+      host: process.env.DB_HOST || "localhost",
+      port: Number(process.env.DB_PORT) || 3306,
+      user: process.env.DB_USER || "root",
+      password: process.env.DB_PASSWORD || "123",
       database: "todo_project",
       dateStrings: true,
       
