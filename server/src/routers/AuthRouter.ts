@@ -2,7 +2,7 @@ import { Router, Request, Response, NextFunction } from "express";
 import {autho, generateToken} from "../middlewares/tokenTools";
 import { MySqlConnection } from "../database";
 import { User } from "../models/User";
-import Encrypt from "../encrypt";
+import Encrypt from "../Encrypt";
 
 const router: Router = Router();
 
@@ -21,7 +21,6 @@ router.post("/login", async (req: Request, res: Response) => {
       email: existingUsers[0].email,
       created: existingUsers[0].created
     });
-    console.log(token);
     return res.json({ token: token });
   }
   return res.sendStatus(403);
