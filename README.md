@@ -1,2 +1,2 @@
 # todo-list
- A nice todo list made with vue and nodejs
+ A nice todo list made with vue, nodejs and mysql
