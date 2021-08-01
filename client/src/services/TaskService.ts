@@ -1,15 +1,12 @@
-import Tools from "@/services/tools/Tools"
 import Task from "@/models/Task"
 import Methods from "@/services/methods"
 import jsonConverter from "@/services/tools/JsonConverter"
-import UserModule from "@/store/UserModule";
-import { getModule } from "vuex-module-decorators";
+import {userModule} from "@/store/UserModule";
 
 export default class TaskService {
-  private static url = `${Tools.SERVER_URL}api/todo-list/`;
-  private static userModule: UserModule = getModule(UserModule);
+  private static url = "api/todo-list/";
   private static createHeader() {
-    return new Headers({"authorization": this.userModule.getToken ? this.userModule.getToken : ""});
+    return new Headers({"authorization": userModule.getToken ? userModule.getToken : ""});
   }
 
   static async getTask(): Promise<Task[] | undefined> {

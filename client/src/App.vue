@@ -47,7 +47,7 @@
         </v-btn>
       </template>
       <template v-else>
-        <v-btn elevation="0" to="/signup">
+        <v-btn elevation="0" to="/">
           <span>Log out</span>
         </v-btn>
       </template>
@@ -60,14 +60,13 @@
 
 <script lang="ts">
 import {Vue, Component} from "vue-property-decorator"
-import { getModule } from 'vuex-module-decorators';
-import UserModule from '@/store/UserModule';
+import UserModule, {userModule} from '@/store/UserModule';
 
 @Component
 export default class App extends Vue {
   drawer: boolean | null = null;
   views!:Array<object>;
-  userModule:UserModule = getModule(UserModule);
+  userModule:UserModule = userModule;
 
   created()
   {

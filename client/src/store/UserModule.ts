@@ -1,15 +1,15 @@
 import store from "@/store/store";
-import {Action, Module, Mutation, VuexModule} from "vuex-module-decorators";
+import {Action, getModule, Module, Mutation, VuexModule} from "vuex-module-decorators";
 
 @Module({dynamic: true, store, name: "UserModule"})
 export default class UserModule extends VuexModule {
   public token: string | null = null;
-  // public username?: string;
+  public username?: string;
 
-  // @Mutation
-  // public setUsername(name: string) {
-
-  // }
+  @Mutation
+  public setUserName(name: string | undefined) {
+    this.username = name ? name : undefined;
+  }
 
   @Mutation
   public setToken(token: string) {
@@ -24,4 +24,9 @@ export default class UserModule extends VuexModule {
     return this.token;
   }
   
+  get getUserName() {
+    return this.username;
+  }
 }
+
+export const userModule: UserModule = getModule(UserModule);

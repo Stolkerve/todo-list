@@ -1,13 +1,10 @@
 import User from "@/models/User";
 import Methods from "@/services/methods";
 import jsonConverter from "@/services/tools/JsonConverter";
-import Tools from "@/services/tools/Tools";
-import UserModule from "@/store/UserModule";
-
-import { getModule } from "vuex-module-decorators";
+import {userModule} from "@/store/UserModule";
 
 export default class AuthService {
-  static url = `${Tools.SERVER_URL}api/auth/`;
+  static url = "api/auth/";
 
   static async addUser(newUser: User): Promise<boolean | undefined> {
     try {
@@ -38,7 +35,7 @@ export default class AuthService {
       const res = await Methods.post(`${this.url}login`, JSON.stringify(jsonConverter.serializeObject(user, User)));
       if(res.status === 200) {
         const json = await res.json();
-        getModule(UserModule).setToken(await json.token);
+        userModule.setToken(await json.token);
         return true;
       }
       else {

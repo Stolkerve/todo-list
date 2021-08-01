@@ -2,12 +2,10 @@ import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 import HomeView from '@/views/HomeView.vue';
 import TodoListView from '@/views/TodoListView.vue';
-import ScheduleView from '@/views/ScheduleView.vue';
 import HistoryView from '@/views/HistoryView.vue';
 import SignUpView from '@/views/SignUpView.vue';
 import LogInView from '@/views/LogInView.vue';
-import { getModule } from 'vuex-module-decorators';
-import UserModule from '@/store/UserModule';
+import {userModule} from '@/store/UserModule';
 
 Vue.use(VueRouter);
 
@@ -22,12 +20,6 @@ const routes: Array<RouteConfig> = [
     name: 'Todo list',
     meta: {requireAuth: true},
     component: TodoListView
-  },
-  {
-    path: '/calendar',
-    name: 'Calendar',
-    meta: {requireAuth: true},
-    component: ScheduleView
   },
   {
     path: '/history',
@@ -55,7 +47,7 @@ const router = new VueRouter({
 
 router.beforeEach( (to: any, front: any, next: any) => {
   if (to.matched.some( (record: any) => record.meta.requireAuth)) {
-    if (!getModule(UserModule).isLoggedIn) {
+    if (!userModule.isLoggedIn) {
       next({
         path: '/login',
         query: { redirect: to.fullPath }
